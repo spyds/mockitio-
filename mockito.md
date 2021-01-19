@@ -34,17 +34,6 @@
 **核心代码：**
 
 ```java
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.oasis.wyvern.miniapp.service.node.TestService;
-import com.oasis.wyvern.miniapp.service.node.TestServiceMockHelper;
-import com.oasis.wyvern.miniapp.service.node.TestServiceSpyHelper;
-
 @RunWith(PowerMockRunner.class)
 public class ServiceTest {
     /**
