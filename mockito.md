@@ -234,15 +234,20 @@ ExpectedException expectedException = ExpectedException.none();
 @Test
 public void test() {
     // 2. 验证此声明之后的函数抛出的异常类型均为BizException.class或无异常, 异常信息为"非法数据"
+    // 	  需要注意的是在执行测试单元时只能校验一次异常，无法校验多次异常
     expectedException.expect(BizException.class);
     expectedException.expectMessage("非法数据");
     TestServiceMockHelper.doStaticMethod(1L);
-    // 3. 验证此声明之后的函数抛出的异常类型均为NullPointerException.class或无异常
-    expectedException.expect(NullPointerException.class);
-    TestServiceMockHelper.doStaticMethod(null);
-    // 4. 执行函数无异常，测试结果正确，但由于上一声明生效中，验证结果可能不正确，有可能抛出NullPointerException
-    //    因此对于不抛异常结果的验证，建议放置于所有异常声明之前
-    TestServiceMockHelper.doStaticMethod(2L);
+    
+    // 3.需要在一个单测里校验多个异常可以使用以下方式
+    Throwable t = null;
+    try {
+        TestServiceMockHelper.doStaticMethod(2L);
+    } catch (Trowable e) {
+        t = e;
+    }
+    Assert.assertNotNull(t);
+    Assert.equals("非法数据", t.getMessage());
 }
 ```
 
